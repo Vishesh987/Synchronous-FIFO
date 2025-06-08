@@ -12,7 +12,7 @@ This project implements a parameterized synchronous FIFO (First-In First-Out) me
 
 ## 📁 File Structure
 - `fifo.v` – RTL design of the FIFO
-- `tb_fifo.v` – Testbench with tasks for:
+- `fifotb.v` – Testbench with tasks for:
   - Write operation
   - Read operation
   - Full & Empty conditions
