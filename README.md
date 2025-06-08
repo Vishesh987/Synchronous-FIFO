@@ -13,11 +13,25 @@ This project implements a parameterized synchronous FIFO (First-In First-Out) me
 ## 📁 File Structure
 - `fifo.v` – RTL design of the FIFO
 - `fifotb.v` – Testbench with tasks for:
-  - Write operation
-  - Read operation
-  - Full & Empty conditions
-  - Wrap-around
-  - Simultaneous read-write
-  - Overflow & Underflow
-  - Reset behavior
+  -The testbench is modularized with tasks, including:
+
+tc_write() – Write test
+
+tc_read() – Read data and check order
+
+tc_full() – Test full condition
+
+tc_empty() – Test empty condition
+
+tc_wraparound() – Check pointer wrap-around behavior
+
+tc_simultaneous_read_write() – Simultaneous read/write with backpressure
+
+tc_overflow() – Write check when FIFO is full
+
+tc_underflow() – Read check when FIFO is empty
+
+tc_reset() – Reset FIFO during operation
+
+
 
