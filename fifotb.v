@@ -45,21 +45,21 @@ rst=0;
 
 $display("\n===== sync_fifo  Tests Start =====\n");
   // 1) Write Test and check if empty went low
-//tc_write();
+tc_write();
 
 // 2) Read Test
-//tc_read();
+tc_read();
 
   //3)Full test
-  //tc_full();
+  tc_full();
   //4)Empty test
- //tc_empty();
+ tc_empty();
   
-  //tc_wraparound();
- //tc_simultaneous_read_write();
- //tc_overflow();
- //tc_underflow();
- // tc_reset();
+  tc_wraparound();
+ tc_simultaneous_read_write();
+ tc_overflow();
+ tc_underflow();
+  tc_reset();
 
   
 #10;
@@ -135,7 +135,7 @@ end
   task tc_wraparound();
   integer i;
   begin
-    $display(">>> [Wraparound Test Case Start]");
+    $display("Wraparound Test Case");
 
     // Fill FIFO with DEPTH values
     for (i = 0; i < DEPTH; i = i + 1) begin
@@ -190,7 +190,7 @@ endtask
 
   task tc_simultaneous_read_write();
 begin
-  $display(">>> [Simultaneous Read/Write Test Case Start]");
+  $display("Simultaneous Read/Write Test");
 
   @(posedge clk);
     din   = 8'h55;
@@ -215,7 +215,7 @@ begin
   if (dout !== 8'h55)
     $display("    ERROR: Expected 8'h55, got %h", dout);
   else
-    $display("    PASS: Read 0x55 correctly during simultaneous rd/wr.");
+    $display("PASS: Read 0x55 correctly during simultaneous rd/wr.");
 
   // Step 3: Read 0x99
   @(posedge clk);
@@ -229,7 +229,7 @@ begin
   if (dout !== 8'h99)
     $display("    ERROR: Expected 8'h99, got %h", dout);
   else
-    $display("    PASS: Read 0x99 correctly.");
+    $display("PASS: Read 0x99 correctly.");
 
   $display("");
 end
@@ -260,7 +260,7 @@ endtask
 
 task tc_underflow();
 begin
-$display("[Underflow Test]");
+$display("Underflow Test");
 // Make sure FIFO is empty
 if (!empty) begin
 // If not empty, drain it
@@ -282,9 +282,9 @@ rd_en = 1;
 rd_en = 0;
 
 if(!empty)begin
-  $display("    ERROR: empty flag deasserted on underflow attempt.");
+  $display("ERROR: empty flag deasserted on underflow attempt.");
     end else begin
-      $display("    PASS: empty flag stays asserted on underflow.");
+      $display("PASS: empty flag stays asserted on underflow.");
     end
 
     
@@ -293,7 +293,7 @@ if(!empty)begin
 
 task tc_reset();
 begin
-  $display(">>> [Reset Test]");
+  $display("Reset Test");
     din = 8'd12;
     @(posedge clk);
       wr_en = 1;
@@ -307,9 +307,9 @@ begin
 
     // After reset, FIFO should be empty
     if (!empty) begin
-      $display("    ERROR: FIFO not empty after reset.");
+      $display("ERROR: FIFO not empty after reset.");
     end else begin
-      $display("    PASS: FIFO empty after reset.");
+      $display("PASS: FIFO empty after reset.");
     end
     $display("");
   end
